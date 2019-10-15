@@ -6,6 +6,14 @@
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Fujiwo/Shos.Wpf.Controls/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Fujiwo/Shos.Wpf.Controls/</RepositoryUrl>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Description>WPF (.NET Core)  Sample for Shos.Wpf.Controls.</Description>
+    <Copyright>Copyright © 2019 Fujio Kojima</Copyright>
+    <Authors>Fujio Kojima</Authors>
+    <Company>Sho's Software</Company>
   </PropertyGroup>
 
   <ItemGroup>

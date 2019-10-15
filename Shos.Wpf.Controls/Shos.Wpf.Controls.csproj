@@ -11,15 +11,16 @@
     <PackageProjectUrl>https://github.com/Fujiwo/Shos.Wpf.Controls/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Fujiwo/Shos.Wpf.Controls/</RepositoryUrl>
     <PackageReleaseNotes></PackageReleaseNotes>
-    <Description>
-      Wpf (.NET Core) Control Library.
-      - FontComboBox
-      (for .NET Core 3.0 or later)
-    </Description>
+    <Description>WPF (.NET Core) Control Library.
+ - FontComboBox
+(for .NET Core 3.0 or later)</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <Version>0.1.0</Version>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Authors>Fujio Kojima</Authors>
+    <Company>Sho's Software</Company>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="4.6.0" />
-  </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@
         xmlns:shoswpfcontrols="clr-namespace:Shos.Wpf.Controls;assembly=Shos.Wpf.Controls"
         xmlns:local="clr-namespace:FontComboBoxSample"
         mc:Ignorable="d"
-        Title="MainWindow" Height="120" Width="400">
+        Title="FontComboBoxSample" Height="120" Width="400">
     <Window.Resources>
         <local:MainViewModel x:Key="viewModel" />
     </Window.Resources>

@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace Shos.Wpf.Controls
 {
-    static class Extension
+    static class FontFamilyExtension
     {
         public static bool IsSymbol(this FontFamily @this)
             => @this.GetTypefaces().First().TryGetGlyphTypeface(out var glyphTypeface) && glyphTypeface != null ? glyphTypeface.Symbol : false;
@@ -20,7 +20,7 @@ namespace Shos.Wpf.Controls
     {
         static readonly XmlLanguage language = XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
 
-        public static string DefaultFontFamilyName { get; } = System.Drawing.SystemFonts.DefaultFont.Name;
+        public static FontFamily DefaultFontFamily => SystemFonts.MenuFontFamily;
 
         public FontFamily? FontFamily          { get; private set; }
         public string      FontFamilyName      { get; private set; }
@@ -29,7 +29,7 @@ namespace Shos.Wpf.Controls
         public FontComboBoxItemViewModel(FontFamily fontFamily)
         {
             FontFamily          = fontFamily;
-            FontFamilyName      = fontFamily.IsSymbol() ? DefaultFontFamilyName : fontFamily?.Source ?? "";
+            FontFamilyName      = fontFamily.IsSymbol() ? DefaultFontFamily.Source : fontFamily?.Source ?? "";
             LocalFontFamilyName = ToLocalFontFamilyName(fontFamily);
         }
 
@@ -39,19 +39,16 @@ namespace Shos.Wpf.Controls
 
     public partial class FontComboBox : ComboBox
     {
-        static readonly IEnumerable<FontComboBoxItemViewModel> itemsSource
+        static readonly IEnumerable<FontComboBoxItemViewModel>? itemsSource
             = Fonts.SystemFontFamilies
                    .Select(fontFamily => new FontComboBoxItemViewModel(fontFamily))
                    .OrderBy(fontComboBoxItemViewModel => fontComboBoxItemViewModel.LocalFontFamilyName)
                    .ToList();
 
-        static string DefaultFontFamilyName => FontComboBoxItemViewModel.DefaultFontFamilyName;
-
-        static FontFamily? DefaultFontFamily
-            => itemsSource.FirstOrDefault(fontComboBoxItemViewModel => fontComboBoxItemViewModel.FontFamilyName == DefaultFontFamilyName)?.FontFamily;
+        static FontFamily DefaultFontFamily => FontComboBoxItemViewModel.DefaultFontFamily;
 
         static string DefaultLocalFontFamilyName
-            => itemsSource.FirstOrDefault(fontComboBoxItemViewModel => fontComboBoxItemViewModel.FontFamilyName == DefaultFontFamilyName)?.LocalFontFamilyName ?? "";
+            => itemsSource?.FirstOrDefault(fontComboBoxItemViewModel => fontComboBoxItemViewModel.FontFamilyName == DefaultFontFamily.Source)?.LocalFontFamilyName ?? "";
 
         public static readonly DependencyProperty SelectedFontFamilyProperty
             = DependencyProperty.Register(
@@ -72,19 +69,21 @@ namespace Shos.Wpf.Controls
         static void SelectedFontFamilyPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var fontFamily                        = e.NewValue as FontFamily;
-            var selectedFontComboBoxItemViewModel = itemsSource.FirstOrDefault(fontComboBoxItemViewModel => fontComboBoxItemViewModel.FontFamily == fontFamily);
-            d.SetValue(SelectedItemProperty               , selectedFontComboBoxItemViewModel                           );
-            d.SetValue(SelectedFontFamilyNameProperty     , selectedFontComboBoxItemViewModel?.FontFamilyName      ?? "");
-            d.SetValue(SelectedLocalFontFamilyNameProperty, selectedFontComboBoxItemViewModel?.LocalFontFamilyName ?? "");
+            var selectedFontComboBoxItemViewModel = itemsSource?.FirstOrDefault(fontComboBoxItemViewModel => fontComboBoxItemViewModel.FontFamily == fontFamily);
+            if (selectedFontComboBoxItemViewModel != null) {
+                d.SetValue(SelectedItemProperty               , selectedFontComboBoxItemViewModel                           );
+                d.SetValue(SelectedFontFamilyNameProperty     , selectedFontComboBoxItemViewModel?.FontFamilyName      ?? "");
+                d.SetValue(SelectedLocalFontFamilyNameProperty, selectedFontComboBoxItemViewModel?.LocalFontFamilyName ?? "");
+            }
         }
 
-        public static readonly DependencyProperty SelectedFontFamilyNameProperty 
+        public static readonly DependencyProperty SelectedFontFamilyNameProperty
             = DependencyProperty.Register(
                   "SelectedFontFamilyName",
                   typeof(string),
                   typeof(FontComboBox),
                   new PropertyMetadata(
-                      DefaultFontFamilyName,
+                      DefaultFontFamily.Source,
                       SelectedFontFamilyNamePropertyChanged
                   )
               );
@@ -96,11 +95,13 @@ namespace Shos.Wpf.Controls
 
         static void SelectedFontFamilyNamePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var fontFamilyName                    = e.NewValue as string;
-            var selectedFontComboBoxItemViewModel = itemsSource.FirstOrDefault(fontComboBoxItemViewModel => fontComboBoxItemViewModel.FontFamilyName == fontFamilyName);
-            d.SetValue(SelectedItemProperty               , selectedFontComboBoxItemViewModel                           );
-            d.SetValue(SelectedFontFamilyProperty         , selectedFontComboBoxItemViewModel?.FontFamily               );
-            d.SetValue(SelectedLocalFontFamilyNameProperty, selectedFontComboBoxItemViewModel?.LocalFontFamilyName ?? "");
+            var fontFamilyName = e.NewValue as string;
+            var selectedFontComboBoxItemViewModel = itemsSource?.FirstOrDefault(fontComboBoxItemViewModel => fontComboBoxItemViewModel.FontFamilyName == fontFamilyName);
+            if (selectedFontComboBoxItemViewModel != null) {
+                d.SetValue(SelectedItemProperty, selectedFontComboBoxItemViewModel);
+                d.SetValue(SelectedFontFamilyProperty, selectedFontComboBoxItemViewModel?.FontFamily);
+                d.SetValue(SelectedLocalFontFamilyNameProperty, selectedFontComboBoxItemViewModel?.LocalFontFamilyName ?? "");
+            }
         }
 
         public static readonly DependencyProperty SelectedLocalFontFamilyNameProperty
@@ -122,18 +123,20 @@ namespace Shos.Wpf.Controls
         static void SelectedLocalFontFamilyNamePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var localFontFamilyName               = e.NewValue as string;
-            var selectedFontComboBoxItemViewModel = itemsSource.FirstOrDefault(fontComboBoxItemViewModel => fontComboBoxItemViewModel.LocalFontFamilyName == localFontFamilyName);
-            d.SetValue(SelectedItemProperty          , selectedFontComboBoxItemViewModel                );
-            d.SetValue(SelectedFontFamilyProperty    , selectedFontComboBoxItemViewModel?.FontFamily    );
-            d.SetValue(SelectedFontFamilyNameProperty, selectedFontComboBoxItemViewModel?.FontFamilyName);
+            var selectedFontComboBoxItemViewModel = itemsSource?.FirstOrDefault(fontComboBoxItemViewModel => fontComboBoxItemViewModel.LocalFontFamilyName == localFontFamilyName);
+            if (selectedFontComboBoxItemViewModel != null) {
+                d.SetValue(SelectedItemProperty          , selectedFontComboBoxItemViewModel                );
+                d.SetValue(SelectedFontFamilyProperty    , selectedFontComboBoxItemViewModel?.FontFamily    );
+                d.SetValue(SelectedFontFamilyNameProperty, selectedFontComboBoxItemViewModel?.FontFamilyName);
+            }
         }
 
         public FontComboBox()
         {
             InitializeComponent();
 
-            Language           = XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
-            ItemsSource        = itemsSource;
+            Language    = XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
+            ItemsSource = itemsSource;
 
             SelectionChanged += (sender, e) => {
                 var fontComboBoxItemViewModel = SelectedItem as FontComboBoxItemViewModel;

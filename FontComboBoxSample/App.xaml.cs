@@ -3,5 +3,5 @@
 namespace FontComboBoxSample
 {
     public partial class App : Application
-    {}
+    { }
 }
