@@ -15,6 +15,23 @@ WPF (.NET Core) Control Library.
 ### FontComboBoxSample
 * WPF (.NET Core)  Sample for Shos.Wpf.Controls
 
+## Controls
+
+### FontComboBox
+
+Derives from System.Windows.Controls.ComboBox
+
+Font combo box.
+Items are drawn with each font except symbol fonts.
+
+#### Properties
+
+| Property  | Type | Description |
+|---|---|---|
+| SelectedFontFamily | FontFamily |  |
+| SelectedFontFamilyName | string  |  |
+| SelectedLocalFontFamilyName | string |  |
+
 ## Author Info
 
 Fujio Kojima: a software developer in Japan
