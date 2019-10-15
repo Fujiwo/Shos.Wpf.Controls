@@ -32,6 +32,10 @@ Items are drawn with each font except symbol fonts.
 | SelectedFontFamilyName | string  |  |
 | SelectedLocalFontFamilyName | string |  |
 
+#### See also
+
+[ComboBox Class (System.Windows.Controls) | Microsoft Docs](https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.combobox?view=netcore-3.0)
+
 ### Nuget package
 
 Install as a NuGet Package: [NuGet Gallery | Shos.Wpf.Controls] (https://www.nuget.org/packages/Shos.Wpf.Controls/)
