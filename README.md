@@ -32,6 +32,10 @@ Items are drawn with each font except symbol fonts.
 | SelectedFontFamilyName | string  |  |
 | SelectedLocalFontFamilyName | string |  |
 
+### Nuget package
+
+Install as a NuGet Package: [NuGet Gallery | Shos.Wpf.Controls] (https://www.nuget.org/packages/Shos.Wpf.Controls/)
+
 ## Author Info
 
 Fujio Kojima: a software developer in Japan
