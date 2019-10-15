@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <Copyright>Copyright © 2019 Fujio Kojima</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Fujiwo/Shos.Wpf.Controls/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Fujiwo/Shos.Wpf.Controls/</RepositoryUrl>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <Description>
+      Wpf (.NET Core) Control Library.
+      - FontComboBox
+      (for .NET Core 3.0 or later)
+    </Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="4.6.0" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,18 @@
+﻿<Window x:Class="FontComboBoxSample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:shoswpfcontrols="clr-namespace:Shos.Wpf.Controls;assembly=Shos.Wpf.Controls"
+        xmlns:local="clr-namespace:FontComboBoxSample"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="120" Width="400">
+    <Window.Resources>
+        <local:MainViewModel x:Key="viewModel" />
+    </Window.Resources>
+    <StackPanel Orientation="Vertical" DataContext="{Binding Source={StaticResource viewModel}}">
+        <shoswpfcontrols:FontComboBox SelectedFontFamilyName="{Binding SelectedFontFamilyName, Mode=TwoWay}" SelectedLocalFontFamilyName="{Binding SelectedLocalFontFamilyName, Mode=TwoWay}" />
+        <TextBox Text="{Binding SelectedFontFamilyName, Mode=TwoWay}" FontFamily="{Binding SelectedFontFamilyName}" />
+        <TextBox Text="{Binding SelectedLocalFontFamilyName, Mode=TwoWay}" FontFamily="{Binding SelectedFontFamilyName}" />
+    </StackPanel>
+</Window>
